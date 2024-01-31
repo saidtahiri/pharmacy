@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a base image
-FROM node:14 AS builder
+FROM node:18 AS builder
 
 # Set the working directory
 WORKDIR /app
@@ -10,6 +10,7 @@ COPY package*.json ./app-backend/
 
 # Install backend dependencies
 RUN cd app-backend && npm install -g npm@latest
+
 
 # Copy package.json and package-lock.json for frontend
 #COPY frontend-app/package*.json ./frontend-app/
