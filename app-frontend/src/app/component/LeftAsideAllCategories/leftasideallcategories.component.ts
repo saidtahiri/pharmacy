@@ -6,8 +6,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'leftasideallcategories',
   standalone: true,
   imports: [RouterLink,RouterLinkActive,CommonModule],
-  templateUrl: './leftAsideAllCategories.component.html',
-  styleUrl: './leftAsideAllCategories.component.scss'
+  templateUrl: './leftAsideallCategories.component.html',
+  styleUrl: './leftAsideallCategories.component.scss'
 })
 export class LeftasideallcategoriesComponent {
 
