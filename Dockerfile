@@ -5,13 +5,13 @@ FROM node:14 AS builder
 WORKDIR /app
 
 # Copy package.json and package-lock.json for backend
-COPY backend/package*.json ./backend/
+COPY backend-app/package*.json ./backend-app/
 
 # Install backend dependencies
 RUN cd backend && npm install
 
 # Copy package.json and package-lock.json for frontend
-COPY frontend/package*.json ./frontend/
+COPY frontend-app/package*.json ./frontend-app/
 
 # Install frontend dependencies
 RUN cd app-frontend && npm install
@@ -26,4 +26,4 @@ RUN cd app-frontend && npm run build --prod
 EXPOSE 3000
 
 # Command to start the Node.js application
-CMD ["node", "backend/app.js"]
+CMD ["node", "backend-app/app.js"]
