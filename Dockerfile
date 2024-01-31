@@ -5,7 +5,8 @@ FROM node:14 AS builder
 WORKDIR /app
 
 # Copy package.json and package-lock.json for backend
-COPY backend-app/package*.json ./backend-app/
+COPY package*.json ./backend-app/
+
 
 # Install backend dependencies
 RUN cd backend && npm install
