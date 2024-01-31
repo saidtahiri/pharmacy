@@ -12,7 +12,8 @@ COPY package*.json ./backend-app/
 RUN cd backend-app && npm install
 
 # Copy package.json and package-lock.json for frontend
-COPY frontend-app/package*.json ./frontend-app/
+#COPY frontend-app/package*.json ./frontend-app/
+COPY package*.json ./frontend-app/
 
 # Install frontend dependencies
 RUN cd app-frontend && npm install
