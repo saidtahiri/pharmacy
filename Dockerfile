@@ -18,7 +18,7 @@ RUN cd app-frontend && npm install -g @angular/cli@17.0.6 && npm install
 
 # Copy the entire project to the working directory
 COPY . .
-
+ 
 # Build the Angular application
 RUN cd app-frontend && \
     npm install  @angular/cli@17.0.6 && \
