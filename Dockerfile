@@ -15,8 +15,9 @@ RUN cd app-backend && npm install
 #COPY frontend-app/package*.json ./frontend-app/
 COPY package*.json ./app-frontend/
 
-# Install frontend dependencies
-RUN cd app-frontend && npm install
+# Install frontend dependenciesfor the frontend
+RUN cd app-frontend && npm install -g @angular/cli && npm install
+
 
 # Copy the entire project to the working directory
 COPY . .
