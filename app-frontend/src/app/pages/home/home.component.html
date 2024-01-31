@@ -1,0 +1,89 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-12 col align-self-end">
+            <main></main>
+        </div>
+
+    </div>
+</div>
+
+<section class="categories">
+    <div class="container">
+        <div class="row">
+            <owl-carousel></owl-carousel>
+        </div>
+    </div>
+</section>
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Featured Product</h2>
+                </div>
+                <div class="featured__controls">
+                    <ul>
+                        <li class="active" data-filter="*">All</li>
+                        <li *ngFor="let productName of featuredProducts">{{productName}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row featured__filter" id="MixItUp974398">
+            <div class="col-lg-3 col-md-4 col-sm-6 mix"  *ngFor="let product of products ,let i = index">
+                <featured-product 
+                    [productPath]="product.path" [productTitle]="product.title + i"
+                    [productPrice]="product.price">
+                </featured-product>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+<section class="latest-product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Latest Products</h4>
+                    <div class="latest-product__slider owl-carousel owl-loaded owl-drag" >
+                            <owl-stage>  
+                                <div class="owl-item" style="width: 360px;" *ngFor="let i of [3,1,2]">
+                                    <div class="latest-prdouct__slider__item">
+                                        <latest-item [productUrlPicture]="'../../../assets/images/bg.png'"
+                                            [productName]="'compo' + i" [price]="'gratos'">
+                                        </latest-item>
+                                    </div>
+                                </div>
+                            </owl-stage>
+                            <owl-nav></owl-nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Top Rated Products</h4>
+                    <div class="latest-product__slider owl-carousel owl-loaded owl-drag">
+                            <owl-stage>    
+                                <div class="owl-item" style="width: 360px;">
+                                    <div class="latest-prdouct__slider__item">
+                                        <latest-item [productUrlPicture]="'../../../assets/images/bg.png'"
+                                            [productName]="'second compo'" [price]="'30DH'">
+                                            <!-- ../../../../../../../../src/assets/images/bg.png -->
+                                        </latest-item>
+                                    </div>
+                                </div>
+                            </owl-stage>
+                            <owl-nav></owl-nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

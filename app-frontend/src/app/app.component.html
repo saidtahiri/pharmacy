@@ -1,0 +1,44 @@
+<style>
+    .mainContainer{
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+
+
+<top-header (toggleDisplayLogin)="switchToLogin()">
+
+</top-header>
+
+<navbar *ngIf="!afficherLoginComponent"></navbar>
+<!-- <app-login></app-login> -->
+<div class="container" *ngIf="!afficherLoginComponent">
+    <div class="row">
+        <div class="col-lg-3 col-md-3" style="height: fit-content;">
+
+
+           <leftasideallcategories>
+            <ul class="dropdown-content">
+                <li *ngFor="let categorie of categoriesFromAPI">
+                    <a routerLink="{{categorie.navigateTo}}" routerLinkActive="active">
+                        {{categorie.content}}
+                    </a>
+                </li>
+            </ul>
+           </leftasideallcategories>
+
+
+        </div>
+        <div class="col-lg-9 col-md-9 col-12">
+            <searchallcategories></searchallcategories>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    
+</div>
+<app-login *ngIf="afficherLoginComponent" (emitEventToDisplaySignUpComponent)="switchToSignUp()"></app-login>
+<!-- <app-signup *ngIf="afficherSignUpComponent"></app-signup> -->
+
+<app-footer *ngIf="!afficherLoginComponent"></app-footer>
+
