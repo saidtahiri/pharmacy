@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a base image
-FROM node:18 AS builder
+FROM node:18.18.0 AS builder
 
 
 # Install Node.js and npm
@@ -19,6 +19,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular application
+RUN npm install -g @angular/cli@17.0.6 && npm install
 RUN npm run build --prod
 
 # Use a lightweight Nginx image as the final base image
