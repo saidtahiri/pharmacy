@@ -7,18 +7,14 @@ WORKDIR /app
 # Copy package.json and package-lock.json for backend
 COPY package*.json ./app-backend/
 
-
 # Install backend dependencies
 RUN cd app-backend && npm install -g npm@latest
 
-
 # Copy package.json and package-lock.json for frontend
-#COPY frontend-app/package*.json ./frontend-app/
 COPY package*.json ./app-frontend/
 
-# Install frontend dependenciesfor the frontend
-RUN cd app-frontend && npm install -g @angular/cli && npm install
-
+# Install frontend dependencies for the frontend
+RUN cd app-frontend && npm install -g @angular/cli@11.2.0 && npm install
 
 # Copy the entire project to the working directory
 COPY . .
