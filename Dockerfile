@@ -1,11 +1,6 @@
 # Use an official Node.js runtime as a base image
 FROM node:18 AS builder
 
-
-# Install Node.js and npm
-RUN apt-get update && apt-get install -y nodejs npm
-
-
 # Set the working directory
 WORKDIR /app
 
