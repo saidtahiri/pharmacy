@@ -20,7 +20,10 @@ RUN cd app-frontend && npm install -g @angular/cli@17.0.6 && npm install
 COPY . .
 
 # Build the Angular application
-RUN cd app-frontend && npm run build --prod
+RUN cd app-frontend
+RUN npm install 
+RUN npm install  @angular/cli@17.0.6 && npm install
+RUN npm run build --prod
 
 # Expose the port on which the Node.js application will run
 EXPOSE 3000
