@@ -5,15 +5,15 @@ FROM node:14 AS builder
 WORKDIR /app
 
 # Copy package.json and package-lock.json for backend
-COPY package*.json ./backend-app/
+COPY package*.json ./app-backend/
 
 
 # Install backend dependencies
-RUN cd backend-app && npm install
+RUN cd app-backend && npm install
 
 # Copy package.json and package-lock.json for frontend
 #COPY frontend-app/package*.json ./frontend-app/
-COPY package*.json ./frontend-app/
+COPY package*.json ./app-frontend/
 
 # Install frontend dependencies
 RUN cd app-frontend && npm install
