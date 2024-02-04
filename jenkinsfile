@@ -92,7 +92,7 @@
                     echo 'Hello, World!'
                 }
             }
-        }
+        } 
     }
 
     post {
