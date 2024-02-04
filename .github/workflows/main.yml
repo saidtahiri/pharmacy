@@ -27,5 +27,5 @@ jobs: #Spécifie les jobs à exécuter
         with:
           context: .  # spécifie l'emplacement où se trouve le fichier Dockerfile (le répertoire racine dans ce cas).
           push: true # indique que l'image doit être poussée vers le registre.
-          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/imageofmyproject:latest 
+          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/imageofmyproject:latest  #tage de l'image
        
