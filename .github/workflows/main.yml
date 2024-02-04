@@ -16,7 +16,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18.18.0  # Use Node.js version 18.x
+          check-latest: true  # Check for the latest available Node.js version
 
       - name: Install dependencies
         run: npm install
