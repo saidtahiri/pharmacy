@@ -1,31 +1,31 @@
-name: Docker Publish  #Cette ligne  définit le nom du GitHub Actions 
-on: # on Définit les événements qui vont déclencher Github Actions
-  push: #déclenche Github Actions lorsqu'un événement de push se produit.
+name: Deploy to GitHub Pages
 
-    branches: #spécifie les branches pour lesquelles le flux de travail 
-            #doit être déclenché.Dans ce cas, il est déclenché uniquement pour les pushes sur la branche main.
+on:
+  push:
+    branches:
+      - main
 
-      - main  # Change this to your main branch name 
-jobs: #Spécifie les jobs à exécuter
-  build: #Définit un job appelé "build"
-    runs-on: ubuntu-latest  #Spécifie que le job s'exécute dans un environnement Ubuntu.
-  
-    steps: ## l'ensamble des etape de job build
-      - name: Checkout repository  # le nom de l'etape 
-        uses: actions/checkout@v2 #Utilise l'action actions/checkout pour cloner le dépôt dans 
-        #l'environnement de l'exécuteur GitHub Actions.
-      
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2 #Utilise l'action docker/login-action pour se connecter à Docker Hub. 
-        #Elle utilise les identifiants Docker Hub stockés en tant que secrets GitHub (DOCKERHUB_USERNAME et DOCKERHUB_TOKEN).
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          node-version: 14
 
-      - name: Build and push my project Docker image
-        uses: docker/build-push-action@v2 #Utilise l'action docker/build-push-action pour construire et pousser l'image Docker.
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular app
+        run: npm run build -- --prod
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          context: .  # spécifie l'emplacement où se trouve le fichier Dockerfile (le répertoire racine dans ce cas).
-          push: true # indique que l'image doit être poussée vers le registre.
-          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/imageofmyproject:latest 
-       
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./PHARM/dist/app-frontend  # Update with the correct path to your Angular app's build output directory
