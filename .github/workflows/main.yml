@@ -22,5 +22,5 @@ jobs:
         with:
           context: .  # Path to the directory containing the combined Dockerfile
           push: true
-          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/imageOfmyProject:latest
+          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/imageofmyproject:latest
        
