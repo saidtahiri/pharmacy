@@ -10,7 +10,7 @@ RUN cd app-backend && npm install -g npm@latest
 # Copy package.json and package-lock.json for frontend
 COPY package*.json ./app-frontend/
 # Install frontend dependencies for the frontend
-RUN cd app-frontend && npm install -g @angular/cli@17.0.6 && npm install
+RUN  npm install -g @angular/cli@17.0.6 && npm install
 # Copy the entire project to the working directory
 COPY . .
 # Build the Angular appwlication
