@@ -1,0 +1,107 @@
+/* pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE_NAME = "your-docker-image-name"
+        GITHUB_PAGES_BRANCH = "gh-pages"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Checkout the source code
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Build the Angular app
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    // Build Docker image
+                    docker.build(env.DOCKER_IMAGE_NAME)
+                }
+            }
+        }
+
+        stage('Docker Publish') {
+            steps {
+                script {
+                    // Push Docker image to a registry
+                    docker.withRegistry('https://registry.example.com', 'docker-credentials-id') {
+                        docker.image(env.DOCKER_IMAGE_NAME).push()
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to GitHub Pages') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+            }
+            steps {
+                script {
+                    // Checkout the gh-pages branch
+                    checkout([$class: 'GitSCM', branches: [[name: "refs/heads/${GITHUB_PAGES_BRANCH}"]]])
+
+                    // Copy the Angular app files to the gh-pages branch
+                    sh 'rm -rf *'
+                    sh 'cp -r ../path/to/your/angular/app/dist/* .'
+                    
+                    // Commit and push changes to gh-pages branch
+                    sh 'git add .'
+                    sh 'git commit -m "Publishing to GitHub Pages"'
+                    sh 'git push origin ${GITHUB_PAGES_BRANCH}'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            // Clean up steps on success, if needed
+            echo 'Build and deployment successful!'
+        }
+
+        failure {
+            // Additional steps to handle failures, if needed
+            echo 'Build or deployment failed!'
+        }
+    }
+}
+ */
+
+ pipeline {
+    agent any
+
+    stages {
+        stage('Hello World') {
+            steps {
+                script {
+                    echo 'Hello, World!'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
