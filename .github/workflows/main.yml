@@ -22,10 +22,5 @@ jobs: #Spécifie les jobs à exécuter
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push my project Docker image
-        uses: docker/build-push-action@v2 #Utilise l'action docker/build-push-action pour construire et pousser l'image Docker.
-        with:
-          context: .  # spécifie l'emplacement où se trouve le fichier Dockerfile (le répertoire racine dans ce cas).
-          push: true # indique que l'image doit être poussée vers le registre.
-          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/imageofmyproject:latest 
+     
        
