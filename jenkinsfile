@@ -104,11 +104,11 @@ pipeline {
                     // Set up NVM environment
                     withEnv(["NVM_DIR=$HOME/.nvm", "NODE_HOME=$NVM_DIR/versions/node"]) {
                         sh '''
-                            [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-                            export NVM_DIR="$HOME/.nvm"
-                            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                            nvm install node
-                            npm install -g @angular/cli@17.0.10
+                                [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+                                export NVM_DIR="$HOME/.nvm"
+                                [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+                                nvm install node
+                                npm install -g @angular/cli@17.0.10
                         '''
                     }
                 }
