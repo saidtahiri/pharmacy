@@ -41,7 +41,7 @@ pipeline {
                     def githubPagesUrl = "https://${env.GITHUB_REPOSITORY.split('/')[0]}.github.io/${env.GITHUB_REPOSITORY.split('/')[1]}/"
 
                     // Print the GitHub Pages URL to the console
-                    echo "GitHub Pages URL: ${githubPagesUrl}"
+                    echo "GitHub Pages URL: ${githubPagesUrl}" 
                 }
             }
         }
