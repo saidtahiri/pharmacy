@@ -108,10 +108,14 @@ pipeline {
                             [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
                             nvm install node
                         '''
-                        sh 'node -v'
-                        sh 'npm -v'
-                        sh 'npm install -g @angular/cli'
                     }
+
+                    // Set up npm configuration
+                    sh 'npm config set prefix $HOME/.npm-global'
+                    sh 'export PATH=$PATH:$HOME/.npm-global/bin'
+
+                    // Install Angular CLI
+                    sh 'npm install -g @angular/cli'
                 }
             }
         }
