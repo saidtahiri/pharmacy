@@ -35,6 +35,9 @@ pipeline {
         stage('Deploy to GitHub Pages') {
             steps {
                 script {
+                    // Print debug information
+                    echo "GitHub Repository: ${env.GITHUB_REPOSITORY}"
+
                     // Run the deploy script
                     sh "npm run deploy"
 
@@ -45,7 +48,8 @@ pipeline {
                     echo "GitHub Pages URL: ${githubPagesUrl}" 
                 }
             }
-        }
+}
+
     }
 
     post {
