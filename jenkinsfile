@@ -82,6 +82,7 @@
 }
  */
 
+
 pipeline {
     agent any
 
@@ -98,25 +99,25 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-        steps {
-            script {
-                // Install NVM
-                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'
+            steps {
+                script {
+                    // Install NVM
+                    sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'
 
-                // Set up NVM environment
-                withEnv(["NVM_DIR=$HOME/.nvm", "NODE_HOME=$NVM_DIR/versions/node"]) {
-                    sh '''
-                        [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-                        nvm install node
-                        node -v
-                        npm -v
-                        npm install
-                    '''
+                    // Set up NVM environment
+                    withEnv(["NVM_DIR=$HOME/.nvm", "NODE_HOME=$NVM_DIR/versions/node"]) {
+                        sh '''
+                            [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+                            nvm install node
+                            node -v
+                            npm -v
+                            npm install -g @angular/cli
+                            npm install
+                        '''
+                    }
                 }
             }
         }
-    }
-
 
         stage('Build') {
             steps {
