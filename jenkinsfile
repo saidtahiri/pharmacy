@@ -16,7 +16,6 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
-                sh "npm install --save-dev gh-pages"
             }
         }
 
@@ -26,16 +25,23 @@ pipeline {
             }
         }
 
-/*         stage('Unit Tests') {
+        stage('Unit Tests') {
             steps {
                 sh "npm test"
             }
-        } */
+        }
 
         stage('Deploy to GitHub Pages') {
             steps {
                 script {
+                    // Run the deploy script
                     sh "npm run deploy"
+
+                    // Capture the GitHub Pages URL
+                    def githubPagesUrl = "https://${env.GITHUB_REPOSITORY.split('/')[0]}.github.io/${env.GITHUB_REPOSITORY.split('/')[1]}/"
+
+                    // Print the GitHub Pages URL to the console
+                    echo "GitHub Pages URL: ${githubPagesUrl}"
                 }
             }
         }
