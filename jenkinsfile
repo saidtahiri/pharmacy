@@ -86,9 +86,9 @@
 pipeline {
     agent any
 
-    environment {
-        NODEJS_HOME = tool 'node'
-        ANGULAR_HOME = tool 'Angular CLI'
+    tools {
+        nodejs 'node'  // Tool name configured in Jenkins for Node.js
+        angular 'Angular CLI'  // Tool name configured in Jenkins for Angular CLI
     }
 
     stages {
@@ -104,27 +104,23 @@ pipeline {
                     // Set up NVM environment
                     withEnv(["NVM_DIR=$HOME/.nvm", "NODE_HOME=$NVM_DIR/versions/node"]) {
                         sh '''
-                                [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-                                export NVM_DIR="$HOME/.nvm"
-                                [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-                                nvm install node
-                               
+                            [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+                            export NVM_DIR="$HOME/.nvm"
+                            [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+                            nvm install node
                         '''
                         sh 'node -v'
                         sh 'npm -v'
-                        sh '/Users/said/.jenkins/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/node/bin/npm install -g @angular/cli'
-
+                        sh 'npm install -g @angular/cli'
                     }
                 }
             }
         }
 
-
-
         stage('Build') {
             steps {
                 script {
-                    sh "${ANGULAR_HOME}/bin/ng build --prod"
+                    sh 'ng build --prod'
                 }
             }
         }
@@ -132,7 +128,7 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 script {
-                    sh "${ANGULAR_HOME}/bin/ng test"
+                    sh 'ng test'
                 }
             }
         }
@@ -140,7 +136,7 @@ pipeline {
         stage('Linting') {
             steps {
                 script {
-                    sh "${ANGULAR_HOME}/bin/ng lint"
+                    sh 'ng lint'
                 }
             }
         }
@@ -164,3 +160,4 @@ pipeline {
         }
     }
 }
+
