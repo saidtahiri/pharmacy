@@ -108,8 +108,12 @@ pipeline {
                                 export NVM_DIR="$HOME/.nvm"
                                 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
                                 nvm install node
-                                npm install -g @angular/cli@17.0.10
+                               
                         '''
+                        sh 'node -v'
+                        sh 'npm -v'
+                        sh '/Users/said/.jenkins/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/node/bin/npm install -g @angular/cli'
+
                     }
                 }
             }
