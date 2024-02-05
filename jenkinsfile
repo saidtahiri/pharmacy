@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define any environment variables needed for your build
-        NODE_HOME = tool 'Your_NodeJS_Installation_Name'
+        NODE_HOME = tool 'node'
         PATH = "${NODE_HOME}/bin:${env.PATH}"
     }
 
