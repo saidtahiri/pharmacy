@@ -82,17 +82,59 @@
 }
  */
 
- pipeline {
+pipeline {
     agent any
 
+    environment {
+        NODEJS_HOME = tool 'NodeJS'
+        ANGULAR_HOME = tool 'Angular CLI'
+    }
+
     stages {
-        stage('Hello World') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
             steps {
                 script {
-                    echo 'Hello, World !!!! that is an update from vsc'
+                    sh "${NODEJS_HOME}/bin/npm install"
                 }
             }
-        } 
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    sh "${ANGULAR_HOME}/bin/ng build --prod"
+                }
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                script {
+                    sh "${ANGULAR_HOME}/bin/ng test"
+                }
+            }
+        }
+
+        stage('Linting') {
+            steps {
+                script {
+                    sh "${ANGULAR_HOME}/bin/ng lint"
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Add deployment steps here
+                // Example: sh "deploy.sh"
+            }
+        }
     }
 
     post {
