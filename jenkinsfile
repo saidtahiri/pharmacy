@@ -1,166 +1,51 @@
-/* pipeline {
-    agent any
-
-    environment {
-        DOCKER_IMAGE_NAME = "your-docker-image-name"
-        GITHUB_PAGES_BRANCH = "gh-pages"
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    // Checkout the source code
-                    checkout scm
-                }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                script {
-                    // Build the Angular app
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                script {
-                    // Build Docker image
-                    docker.build(env.DOCKER_IMAGE_NAME)
-                }
-            }
-        }
-
-        stage('Docker Publish') {
-            steps {
-                script {
-                    // Push Docker image to a registry
-                    docker.withRegistry('https://registry.example.com', 'docker-credentials-id') {
-                        docker.image(env.DOCKER_IMAGE_NAME).push()
-                    }
-                }
-            }
-        }
-
-        stage('Deploy to GitHub Pages') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
-            steps {
-                script {
-                    // Checkout the gh-pages branch
-                    checkout([$class: 'GitSCM', branches: [[name: "refs/heads/${GITHUB_PAGES_BRANCH}"]]])
-
-                    // Copy the Angular app files to the gh-pages branch
-                    sh 'rm -rf *'
-                    sh 'cp -r ../path/to/your/angular/app/dist/* .'
-                    
-                    // Commit and push changes to gh-pages branch
-                    sh 'git add .'
-                    sh 'git commit -m "Publishing to GitHub Pages"'
-                    sh 'git push origin ${GITHUB_PAGES_BRANCH}'
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            // Clean up steps on success, if needed
-            echo 'Build and deployment successful!'
-        }
-
-        failure {
-            // Additional steps to handle failures, if needed
-            echo 'Build or deployment failed!'
-        }
-    }
-}
- */
-
-
 pipeline {
     agent any
 
-    tools {
-        nodejs 'node'  // Tool name configured in Jenkins for Node.js
+    environment {
+        // Define any environment variables needed for your build
+        NODE_HOME = tool 'node'
     }
 
     stages {
         stage('Checkout') {
             steps {
+                // Checkout source code from your version control system (e.g., Git)
                 checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                script {
-                    // Set up NVM environment
-                    withEnv(["NVM_DIR=$HOME/.nvm", "NODE_HOME=$NVM_DIR/versions/node"]) {
-                        sh '''
-                            [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-                            export NVM_DIR="$HOME/.nvm"
-                            [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-                            nvm install node
-                        '''
-                    }
-
-                    // Set up npm configuration
-                    sh 'npm config set prefix $HOME/.npm-global'
-                    sh 'export PATH=$PATH:$HOME/.npm-global/bin'
-
-                    // Install Angular CLI
-                    sh 'npm install -g @angular/cli'
-                }
+                // Install project dependencies (assuming you use npm)
+                sh "${NODE_HOME}/bin/npm install"
             }
         }
 
         stage('Build') {
             steps {
-                script {
-                    sh 'ng build --prod'
-                }
+                // Build the project or run any necessary build steps
+                sh "${NODE_HOME}/bin/npm run build"
             }
         }
 
         stage('Unit Tests') {
             steps {
-                script {
-                    sh 'ng test'
-                }
+                // Run unit tests (adjust the command based on your testing framework)
+                sh "${NODE_HOME}/bin/npm test"
             }
         }
 
-        stage('Linting') {
-            steps {
-                script {
-                    sh 'ng lint'
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deployed app!'
-                // Add deployment steps here
-                // Example: sh "deploy.sh"
-            }
-        }
+        // Add more stages as needed, such as 'Linting', 'Deployment', etc.
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            // Actions to perform if the pipeline is successful
+            echo 'Build and tests passed. Ready for deployment.'
         }
-
         failure {
-            echo 'Pipeline failed!'
+            // Actions to perform if the pipeline fails
+            echo 'Build or tests failed. Please check the logs for details.'
         }
     }
 }
-
