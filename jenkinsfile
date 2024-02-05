@@ -131,6 +131,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
+                echo 'Deployed app!'
                 // Add deployment steps here
                 // Example: sh "deploy.sh"
             }
