@@ -100,8 +100,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
+                    sh  sh '''
+                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+                        source ~/.nvm/nvm.sh
+                        nvm install node
+                    '''
                     sh 'node -v npm -v'
-                    sh "${NODEJS_HOME}/bin/npm install"
+                    /* sh "${NODEJS_HOME}/bin/npm install" */
                 }
             }
         }
