@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         // Define any environment variables needed for your build
-        NODE_HOME = tool 'node'
+        NODE_HOME = tool 'Your_NodeJS_Installation_Name'
+        PATH = "${NODE_HOME}/bin:${env.PATH}"
     }
 
     stages {
@@ -17,21 +18,21 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 // Install project dependencies (assuming you use npm)
-                sh "${NODE_HOME}/bin/npm install"
+                sh "npm install"
             }
         }
 
         stage('Build') {
             steps {
                 // Build the project or run any necessary build steps
-                sh "${NODE_HOME}/bin/npm run build"
+                sh "npm run build"
             }
         }
 
         stage('Unit Tests') {
             steps {
                 // Run unit tests (adjust the command based on your testing framework)
-                sh "${NODE_HOME}/bin/npm test"
+                sh "npm test"
             }
         }
 
