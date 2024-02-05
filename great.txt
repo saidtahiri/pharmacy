@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        // Define any environment variables needed for your build
         NODE_HOME = tool 'node'
         PATH = "${NODE_HOME}/bin:${env.PATH}"
     }
@@ -9,43 +10,42 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // Checkout source code from your version control system (e.g., Git)
                 checkout scm
             }
         }
 
         stage('Install Dependencies') {
             steps {
+                // Install project dependencies (assuming you use npm)
                 sh "npm install"
-                sh "npm install --save-dev gh-pages"
             }
         }
 
         stage('Build') {
             steps {
+                // Build the project or run any necessary build steps
                 sh "npm run build"
             }
         }
 
-/*         stage('Unit Tests') {
+        stage('Unit Tests') {
             steps {
+                // Run unit tests (adjust the command based on your testing framework)
                 sh "npm test"
             }
-        } */
-
-        stage('Deploy to GitHub Pages') {
-            steps {
-                script {
-                    sh "npm run deploy"
-                }
-            }
         }
+
+        // Add more stages as needed, such as 'Linting', 'Deployment', etc.
     }
 
     post {
         success {
+            // Actions to perform if the pipeline is successful
             echo 'Build and tests passed. Ready for deployment.'
         }
         failure {
+            // Actions to perform if the pipeline fails
             echo 'Build or tests failed. Please check the logs for details.'
         }
     }
