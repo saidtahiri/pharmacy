@@ -108,7 +108,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "${ANGULAR_HOME}/bin/ng build --prod"
+                    sh "${NODEJS_HOME}/bin/ng build --prod"
                 }
             }
         }
