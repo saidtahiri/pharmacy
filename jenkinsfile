@@ -97,21 +97,25 @@ pipeline {
             }
         }
 
-       stage('Install Dependencies') {
+    stage('Install Dependencies') {
     steps {
         script {
-            sh '''
-                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-                export NVM_DIR="$HOME/.nvm"
-                [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-                nvm install node
-            '''
-            sh 'node -v'
-            sh 'npm -v'
-            // sh "${NODEJS_HOME}/bin/npm install"
+            // Install NVM
+            sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'
+
+            // Set up NVM environment
+            withEnv(["NVM_DIR=$HOME/.nvm", "NODE_HOME=$NVM_DIR/versions/node"]) {
+                sh '''
+                    [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+                    nvm install node
+                    node -v
+                    npm -v
+                '''
+            }
         }
     }
 }
+
 
         stage('Build') {
             steps {
