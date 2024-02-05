@@ -86,7 +86,7 @@ pipeline {
     agent any
 
     environment {
-        NODEJS_HOME = tool 'NodeJS'
+        NODEJS_HOME = tool 'node'
         ANGULAR_HOME = tool 'Angular CLI'
     }
 
