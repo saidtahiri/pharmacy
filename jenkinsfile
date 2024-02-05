@@ -88,7 +88,6 @@ pipeline {
 
     tools {
         nodejs 'node'  // Tool name configured in Jenkins for Node.js
-        angular 'Angular CLI'  // Tool name configured in Jenkins for Angular CLI
     }
 
     stages {
