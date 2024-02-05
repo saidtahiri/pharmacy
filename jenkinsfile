@@ -112,12 +112,12 @@ pipeline {
                             node -v
                             npm -v
                             npm install -g @angular/cli
-                            npm install
                         '''
                     }
                 }
             }
         }
+
 
         stage('Build') {
             steps {
