@@ -102,11 +102,13 @@ pipeline {
                 script {
                     sh '''
                         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-                        source ~/.nvm/nvm.sh
+                        export NVM_DIR="$HOME/.nvm"
+                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                         nvm install node
                     '''
-                    sh 'node -v npm -v'
-                    /* sh "${NODEJS_HOME}/bin/npm install" */
+                    sh 'node -v'
+                    sh 'npm -v'
+                    // sh "${NODEJS_HOME}/bin/npm install"
                 }
             }
         }
