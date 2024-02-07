@@ -10,7 +10,7 @@ pipeline {
         string(name: 'GITHUB_REPOSITORY', description: 'GitHub repository (user/repo)', defaultValue: 'saidtahiri/pharmacy')
     }
  */
-    stages {
+    stages { 
         stage('Checkout') {
             steps {
                 script {
