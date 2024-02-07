@@ -8,10 +8,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Manually set GitHub repository
                     env.GITHUB_REPOSITORY = 'saidtahiri/pharmacy'
                     echo "GitHub Repository: ${env.GITHUB_REPOSITORY}"
-                    // Checkout repository
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: "https://github.com/${env.GITHUB_REPOSITORY}.git"]]])
                 }
             }
@@ -30,22 +28,15 @@ pipeline {
         stage('Deploy to GitHub Pages') {
             steps {
                 script {
-                    // Run the deploy script
                     sh "npm run deploy"
-                    // Capture the GitHub Pages URL
                     def githubPagesUrl = "https://${env.GITHUB_REPOSITORY.split('/')[0]}.github.io/${env.GITHUB_REPOSITORY.split('/')[1]}/"
-                    // Print the GitHub Pages URL to the console
                     echo "GitHub Pages URL changed: ${githubPagesUrl}"
                 }
             }
         }
     }
     post {
-        success {
-            echo 'Build and tests passed. Ready for deployment.'
-        }
-        failure {
-            echo 'Build or tests failed. Please check the logs for details.'
-        }
+        success {echo 'Build and tests passed. Ready for deployment.'}
+        failure {echo 'Build or tests failed. Please check the logs for details.'}
     }
 }
