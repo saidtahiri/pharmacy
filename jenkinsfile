@@ -6,16 +6,16 @@ pipeline {
         PATH = "${NODE_HOME}/bin:${env.PATH}"
     }
 
-    parameters {
+  /*   parameters {
         string(name: 'GITHUB_REPOSITORY', description: 'GitHub repository (user/repo)', defaultValue: 'saidtahiri/pharmacy')
     }
-
+ */
     stages {
         stage('Checkout') {
             steps {
                 script {
                     // Manually set GitHub repository
-                    env.GITHUB_REPOSITORY = params.GITHUB_REPOSITORY
+                    env.GITHUB_REPOSITORY = 'saidtahiri/pharmacy'
                     echo "GitHub Repository: ${env.GITHUB_REPOSITORY}"
 
                     // Checkout repository
